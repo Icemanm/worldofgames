@@ -10,6 +10,7 @@ pipeline {
 
         stage('Build Container') {
             steps {
+                sh "cd worldofgames"
                 sh 'docker-compose build'
             }
         }
