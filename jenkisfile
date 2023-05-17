@@ -1,20 +1,26 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Clone Code') {
             steps {
-                sh "git clone https://github.com/Icemanm/worldofgames.git"
+                scirpt {
+                    try {
+                        sh "git pull https://github.com/Icemanm/worldofgames.git"
+                    } catch (CloneFailedExepetion e) {
+                        sh "git pull"
+                    }
+                }
             }
         }
-
+        
         stage('Build Container') {
             steps {
                 sh "cd worldofgames"
                 sh 'docker-compose build'
             }
         }
-
+        
         stage('Run Container') {
             steps {
                 sh 'docker-compose up -d'
@@ -25,19 +31,19 @@ pipeline {
                 sh "python e2e.py"
             }
         }
-
+        
         stage('terminate-docker') {
             steps {
                 sh 'docker-compose down'
             }
         }
-
+        
         stage('docker tag') {
             steps {
                 sh 'docker tag scores_img icemanm/scores_img'
             }
-        }
-
+        }            
+        
         stage('Push to Docker Hub') {
             steps {
                 sh "docker push icemanm/scores_img"
