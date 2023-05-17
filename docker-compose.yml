@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  scores_app:
+    image: scores_img
+    container_name: scores-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8777:5000"
+    volumes:
+      - "./MainScores.py:/app/MainScores.py"
+      - "./score.txt:/app/score.txt"
+
