@@ -33,5 +33,5 @@ def main_function(url='http://127.0.0.1:8777/'):
         print("unknown result")
 
         
- main_function()
+main_function()
 
