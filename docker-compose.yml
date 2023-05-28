@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      ports:
+    ports:
       - "8777:5000"
     volumes:
       - "./MainScores.py:/app/MainScores.py"
